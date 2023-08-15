@@ -5,7 +5,7 @@ import { Controllers } from 'lib/types/controllers';
 import config from '../configs';
 import { makeRouter } from './routes';
 import cors from 'cors';
-
+import * as process from 'process';
 const app = express();
 const server = http.createServer(app);
 
@@ -22,9 +22,7 @@ export function makeServer() {
 export async function initServer({ controllers }: { controllers: Controllers }) {
   app.use(cors({ origin: '*' }));
   app.use(json());
-
   const router = makeRouter({ controllers });
-
   app.use('/api', router);
 
   server.listen(config.port, () => console.log('Server is up!'));
